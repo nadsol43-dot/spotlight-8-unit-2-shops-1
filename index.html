@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shops — Interactive Exercises</title>
+<style>
+:root{--ink:#172a3a;--muted:#637487;--paper:#f5f7fa;--white:#fff;--blue:#3168d5;--green:#16815c;--red:#c54c4c;--line:#dce3eb;--gold:#e7bb57}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#eef4ff,#f8fafc 45%,#f4f7f2);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:1020px;margin:auto;padding:28px 18px 60px}.hero{padding:28px 30px;border-radius:22px;color:white;background:linear-gradient(120deg,#17334c,#28617b);box-shadow:0 12px 32px #16314c22}.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:.75rem;color:#c8d8e7;font-weight:750}.hero h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.15;margin:7px 0}.hero p{margin:0;color:#e1edf5}.tabs{display:flex;gap:10px;margin:22px 0 16px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 17px;font-weight:750;cursor:pointer}.tab.active{background:var(--blue);border-color:var(--blue);color:#fff}.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 24px #213d5710}.panel h2{margin:0 0 5px;font-size:1.45rem}.instructions{color:var(--muted);margin:0 0 18px}.shop-bank{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 20px}.chip{padding:6px 11px;border-radius:999px;background:#eef3fb;border:1px solid #dfe7f1;font-size:.88rem;font-weight:650}.question{display:grid;grid-template-columns:40px minmax(190px,1fr) minmax(190px,260px);align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf0f4}.question:last-child{border:0}.num{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#edf3ff;color:#255bbf;font-weight:800}.prompt{font-weight:570}.prompt em{font-style:normal;color:#61748b}.select{width:100%;padding:10px 12px;border:1px solid #cad5e1;background:white;border-radius:10px;color:var(--ink);font:inherit}.select:focus{outline:3px solid #3168d533;border-color:var(--blue)}.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 17px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:#edf1f6;color:#34475b}.btn:hover{filter:brightness(.97)}.result{font-weight:750;margin-left:auto}.score{font-size:1.1rem}.feedback{min-height:22px;font-size:.88rem;font-weight:650;margin-top:5px}.correct .select{border-color:#58ac84;background:#f2fbf6}.incorrect .select{border-color:#df7777;background:#fff5f5}.feedback.ok{color:var(--green)}.feedback.no{color:var(--red)}.finish{margin-top:16px;padding:12px 14px;border-radius:12px;background:#eff8f3;color:#126447;display:none;font-weight:700}.finish.show{display:block}.footer{color:var(--muted);font-size:.84rem;text-align:center;margin-top:18px}.hidden{display:none!important}@media(max-width:640px){.wrap{padding:15px 12px 40px}.hero{padding:23px 20px}.panel{padding:17px}.question{grid-template-columns:32px 1fr;gap:7px 10px}.question .select,.question .feedback{grid-column:2}.result{width:100%;margin:0}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero"><div class="eyebrow">English · Vocabulary practice</div><h1>At the shops</h1><p>Match what people say with the right shop, then choose where you can buy each item.</p></header>
+<nav class="tabs" aria-label="Choose exercise"><button class="tab active" data-target="exercise-a">A · Where would you hear it?</button><button class="tab" data-target="exercise-b">B · Where can you buy it?</button></nav>
+<section id="exercise-a" class="panel">
+<h2>Exercise A · Match the conversation</h2><p class="instructions">Choose the shop where you would hear each sentence.</p>
+<div class="shop-bank" id="bank-a"></div><div id="questions-a"></div>
+<div class="actions"><button class="btn primary" id="check-a">Check answers</button><button class="btn secondary" id="reset-a">Try again</button><span class="result" id="score-a" aria-live="polite"></span></div><div class="finish" id="finish-a" role="status"></div>
+</section>
+<section id="exercise-b" class="panel hidden">
+<h2>Exercise B · Find the shop</h2><p class="instructions">Choose the shop where you can buy each item.</p>
+<div class="shop-bank" id="bank-b"></div><div id="questions-b"></div>
+<div class="actions"><button class="btn primary" id="check-b">Check answers</button><button class="btn secondary" id="reset-b">Try again</button><span class="result" id="score-b" aria-live="polite"></span></div><div class="finish" id="finish-b" role="status"></div>
+</section><p class="footer">Tip: You can change an answer and check again at any time.</p></main>
+<script>
+const shops=["newsagent’s","florist’s","bakery","shoe shop","hairdresser’s","jeweller’s","chemist’s","butcher’s","post office","clothes shop","fishmonger’s","optician’s"];
+const a=[
+["“Do you have this in an extra large?”","clothes shop"],
+["“Just a wash and blow-dry, please.”","hairdresser’s"],
+["“A kilo of steak, please.”","butcher’s"],
+["“These are fresh from the oven.”","bakery"],
+["“I’ve come to pick up my prescription.”","chemist’s"],
+["“I take a size five, narrow.”","shoe shop"],
+["“Are you long or short-sighted?”","optician’s"],
+["“I need to send this first class.”","post office"],
+["“A dozen of those pink ones, please.”","florist’s"],
+["“They were caught fresh this morning.”","fishmonger’s"],
+["“Is this the July issue?”","newsagent’s"],
+["“Do you prefer gold or silver?”","jeweller’s"]
+];
+const b=[["some stamps","post office"],["a packet of aspirin","chemist’s"],["a kilo of sausages","butcher’s"],["a pair of sunglasses","optician’s"],["some prawns","fishmonger’s"],["a bunch of tulips","florist’s"],["a dress","clothes shop"],["a fruitcake","bakery"],["a necklace","jeweller’s"]];
+function build(which,data){document.getElementById('bank-'+which).innerHTML=shops.map(x=>`<span class="chip">${x}</span>`).join('');const host=document.getElementById('questions-'+which);host.innerHTML='';data.forEach(([text,answer],i)=>{const row=document.createElement('div');row.className='question';row.dataset.answer=answer;row.innerHTML=`<div class="num">${i+1}</div><div class="prompt">${text}</div><div><select class="select" aria-label="Answer for ${text}"><option value="">Choose a shop…</option>${shops.map(s=>`<option>${s}</option>`).join('')}</select><div class="feedback" aria-live="polite"></div></div>`;host.appendChild(row)})}
+function check(which){const rows=[...document.querySelectorAll(`#questions-${which} .question`)];let n=0,done=0;rows.forEach(row=>{const sel=row.querySelector('select'),fb=row.querySelector('.feedback');row.classList.remove('correct','incorrect');fb.className='feedback';if(!sel.value){fb.textContent='Choose a shop.';return}done++;if(sel.value===row.dataset.answer){n++;row.classList.add('correct');fb.classList.add('ok');fb.textContent='Correct!'}else{row.classList.add('incorrect');fb.classList.add('no');fb.textContent=`Not quite. Answer: ${row.dataset.answer}.`}});document.getElementById('score-'+which).textContent=`${n} / ${rows.length}`;const finish=document.getElementById('finish-'+which);if(done===rows.length){finish.textContent=n===rows.length?'Excellent — all answers are correct!':`You got ${n} out of ${rows.length}. Review the answers above and try again.`;finish.classList.add('show')}else{finish.textContent=`${done} of ${rows.length} answered. Complete the remaining questions.`;finish.classList.add('show')}}
+function reset(which){document.querySelectorAll(`#questions-${which} .question`).forEach(r=>{r.classList.remove('correct','incorrect');r.querySelector('select').value='';const f=r.querySelector('.feedback');f.textContent='';f.className='feedback'});document.getElementById('score-'+which).textContent='';document.getElementById('finish-'+which).classList.remove('show')}
+build('a',a);build('b',b);document.getElementById('check-a').onclick=()=>check('a');document.getElementById('check-b').onclick=()=>check('b');document.getElementById('reset-a').onclick=()=>reset('a');document.getElementById('reset-b').onclick=()=>reset('b');document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));document.querySelectorAll('section.panel').forEach(s=>s.classList.toggle('hidden',s.id!==t.dataset.target))});
+</script></body></html>
